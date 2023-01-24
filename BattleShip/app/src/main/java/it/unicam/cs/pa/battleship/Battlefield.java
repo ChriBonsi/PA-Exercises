@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.battleship;
 
 /**
- * This interface represents a generic battlefield.
+ * Interface that represents a generic battlefield.
  */
 public interface Battlefield {
 
@@ -63,6 +63,12 @@ public interface Battlefield {
      */
     int height();
 
+    /**
+     * Checks the status of a cell.
+     * @param row the row of the cell
+     * @param column the column of the cell
+     * @return the status of the cell.
+     */
     ShotResult status(int row, int column);
 
 }
