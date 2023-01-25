@@ -9,6 +9,7 @@ public class DefaultBattlefield implements Battlefield {
     private static final int DEFAULT_WIDTH = DEFAULT_SIZE;
     private static final int DEFAULT_HEIGHT = DEFAULT_SIZE;
     private final Ship[][] field;
+    private boolean[][] positionFlag;
     private final int width;
     private final int height;
 
@@ -32,7 +33,7 @@ public class DefaultBattlefield implements Battlefield {
     }
 
     @Override
-    public boolean addShip(Ship ship,FieldPosition p, Direction dir) {
+    public boolean addShip(Ship ship, FieldPosition p, Direction dir) {
         FieldPosition[] positions = dir.computePositions(p.getRow(), p.getColumn(), ship.size());
         if (!checkPositions(positions)) {
             return false;
@@ -42,12 +43,14 @@ public class DefaultBattlefield implements Battlefield {
     }
 
     private void addShip(Ship ship, FieldPosition[] positions) {
-        for (FieldPosition p :
-                positions) {
+        for (FieldPosition p : positions) {
             this.field[p.getRow()][p.getColumn()] = ship;
         }
     }
 
+    /*
+     * Checks if all the given positions are valid in the field.
+     */
     private boolean checkPositions(FieldPosition[] positions) {
         for (FieldPosition p : positions) {
             if (!checkPosition(p)) {
@@ -57,6 +60,9 @@ public class DefaultBattlefield implements Battlefield {
         return true;
     }
 
+    /*
+     * Checks if the given position is valid in the field.
+     */
     private boolean checkPosition(FieldPosition p) {
         if (p.getColumn() < 0 || p.getColumn() >= width() || p.getRow() < 0 || p.getRow() >= height()) return false;
         return isFree(p);
@@ -64,7 +70,16 @@ public class DefaultBattlefield implements Battlefield {
 
     @Override
     public ShotResult shootAt(FieldPosition p) {
-        return null;
+        Ship ship = shipAt(p);
+        recordShotAt(p);
+        if (ship == null) {
+            return ShotResult.MISSED;
+        } else return ship.hitAt(p);
+    }
+
+    private void recordShotAt(FieldPosition p) {
+        positionFlag[p.getRow()][p.getColumn()] = true;
+
     }
 
     @Override
@@ -83,7 +98,17 @@ public class DefaultBattlefield implements Battlefield {
     }
 
     @Override
-    public ShotResult status(FieldPosition p) {
+    public ShotResult result(FieldPosition p) {
+        if (hasBeenUsed(p)) {
+            Ship ship = shipAt(p);
+            if (ship == null) return ShotResult.MISSED;
+            else return ship.status(p);
+        }
+
         return null;
+    }
+
+    private boolean hasBeenUsed(FieldPosition p) {
+        return this.positionFlag[p.getRow()][p.getColumn()];
     }
 }

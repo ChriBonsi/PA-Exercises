@@ -1,6 +1,6 @@
 package it.unicam.cs.pa.battleship;
 
-import java.util.Objects;
+import com.google.common.base.Objects;
 
 /**
  * Identifies a position into the battlefield.
@@ -11,7 +11,8 @@ public class FieldPosition {
 
     /**
      * Constructs an object FieldPosition with the specified coordinates.
-     * @param row the row of the location
+     *
+     * @param row    the row of the location
      * @param column the column of the location
      */
     public FieldPosition(int row, int column) {
@@ -21,6 +22,7 @@ public class FieldPosition {
 
     /**
      * Returns the row of the location.
+     *
      * @return the row of the location.
      */
     public int getRow() {
@@ -29,6 +31,7 @@ public class FieldPosition {
 
     /**
      * Returns the column of the location.
+     *
      * @return the column of the location.
      */
     public int getColumn() {
@@ -39,16 +42,13 @@ public class FieldPosition {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         FieldPosition that = (FieldPosition) o;
-
-        if (getRow() != that.getRow()) return false;
-        return getColumn() == that.getColumn();
+        return getRow() == that.getRow() && getColumn() == that.getColumn();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(row, column);
+        return Objects.hashCode(getRow(), getColumn());
     }
 
     @Override

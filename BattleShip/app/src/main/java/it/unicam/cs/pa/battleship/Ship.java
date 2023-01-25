@@ -39,4 +39,18 @@ public interface Ship {
      * @return the name of the ship.
      */
     String getName();
+
+    /**
+     * Returns the result of a received shot in the given position.
+     * @param p the position to hit
+     * @return the result of the shot.
+     */
+    ShotResult hitAt(FieldPosition p);
+
+    /**
+     * Returns the status of the ship in the given position.
+     * @param p the position of the ship
+     * @return the status of the ship.
+     */
+    ShotResult status(FieldPosition p);
 }

@@ -70,6 +70,6 @@ public interface Battlefield {
      * @param position the position (row,column) to check
      * @return the status of the cell.
      */
-    ShotResult status(FieldPosition position);
+    Object result(FieldPosition position);
 
 }
