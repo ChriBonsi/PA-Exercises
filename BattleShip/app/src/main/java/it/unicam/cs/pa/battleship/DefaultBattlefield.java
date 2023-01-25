@@ -32,8 +32,8 @@ public class DefaultBattlefield implements Battlefield {
     }
 
     @Override
-    public boolean addShip(Ship ship, int row, int column, Direction dir) {
-        FieldPosition[] positions = dir.computePositions(row, column, ship.size());
+    public boolean addShip(Ship ship,FieldPosition p, Direction dir) {
+        FieldPosition[] positions = dir.computePositions(p.getRow(), p.getColumn(), ship.size());
         if (!checkPositions(positions)) {
             return false;
         }
@@ -59,17 +59,17 @@ public class DefaultBattlefield implements Battlefield {
 
     private boolean checkPosition(FieldPosition p) {
         if (p.getColumn() < 0 || p.getColumn() >= width() || p.getRow() < 0 || p.getRow() >= height()) return false;
-        return isFree(p.getRow(), p.getColumn());
+        return isFree(p);
     }
 
     @Override
-    public ShotResult shootAt(int row, int column) {
+    public ShotResult shootAt(FieldPosition p) {
         return null;
     }
 
     @Override
-    public Ship shipAt(int row, int column) {
-        return this.field[row][column];
+    public Ship shipAt(FieldPosition p) {
+        return this.field[p.getRow()][p.getColumn()];
     }
 
     @Override
@@ -83,7 +83,7 @@ public class DefaultBattlefield implements Battlefield {
     }
 
     @Override
-    public ShotResult status(int row, int column) {
+    public ShotResult status(FieldPosition p) {
         return null;
     }
 }

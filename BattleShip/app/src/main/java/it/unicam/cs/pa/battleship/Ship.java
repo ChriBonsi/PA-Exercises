@@ -15,16 +15,16 @@ public interface Ship {
     /**
      * Returns the number of shots received by the ship.
      *
-     * @return the nymber of received shots.
+     * @return the number of received shots.
      */
     int shots();
 
     /**
-     * Returns how many life points the ship has left.
+     * Returns how many life-points the ship has left.
      *
      * @return the remaining life points.
      */
-    int strenght();
+    int strength();
 
     /**
      * Checks if the ship has been destroyed.
