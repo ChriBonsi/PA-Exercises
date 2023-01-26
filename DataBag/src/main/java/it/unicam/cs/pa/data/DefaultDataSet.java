@@ -47,12 +47,7 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double max() {
-        return max(new Predicate<T>() {
-            @Override
-            public boolean test(T t) {
-                return true;
-            }
-        });
+        return max(e -> true);
     }
 
     @Override
@@ -64,8 +59,8 @@ public class DefaultDataSet<T> implements DataSet<T> {
     public double max(Predicate<T> p) {
         double currentMax = Double.NEGATIVE_INFINITY;
         for (Element<T> e : elements) {
-            if (p.test(e.element) && e.value > currentMax) {
-                currentMax = e.value;
+            if (p.test(e.element)) {
+                currentMax = (e.value>currentMax?e.value:currentMax);
             }
         }
         return currentMax;
