@@ -18,7 +18,6 @@ public class DefaultDataSet<T> implements DataSet<T> {
         this.elements = new LinkedList<>();
     }
 
-
     @Override
     public void record(T element, double value) {
         elements.add(new Element<>(element, value));
@@ -36,7 +35,7 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double min(Predicate<T> p) {
-        return reduce(p, (current,value) -> (value<current?value:current), Double.POSITIVE_INFINITY);
+        return reduce(p, (current, value) -> (value < current ? value : current), Double.POSITIVE_INFINITY);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double max(Predicate<T> p) {
-        return reduce(p, (current, value) -> (value>current?value:current), Double.NEGATIVE_INFINITY);
+        return reduce(p, (current, value) -> (value > current ? value : current), Double.NEGATIVE_INFINITY);
     }
 
     @Override
@@ -64,11 +63,11 @@ public class DefaultDataSet<T> implements DataSet<T> {
         return reduce(p, (total, toAdd) -> (total + toAdd), 0);
     }
 
-    public double reduce(Predicate<T> p, BiFunction<Double,Double,Double> f, double init) {
+    public double reduce(Predicate<T> p, BiFunction<Double, Double, Double> f, double init) {
         double current = init;
         for (Element<T> e : elements) {
             if (p.test(e.element)) {
-                current = f.apply(current,e.value);
+                current = f.apply(current, e.value);
             }
         }
         return current;
