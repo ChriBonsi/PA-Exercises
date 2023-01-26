@@ -50,4 +50,25 @@ public interface DataSet<T> {
      */
     double max(Predicate<T> p);
 
+    /**
+     * Returns the minimum value registered in the DataSet that satisfies the condition of the predicate.
+     * @param p the condition to satisfy
+     * @return the minimum registered value that satisfies the predicate:
+     */
+    double min(Predicate<T> p);
+
+    /**
+     * Returns the sum of all registered elements.
+     * @return the sum of all registered elements.
+     */
+    double sum();
+
+    /**
+     * Returns the sum of all registered elements that satisfy the given condition.
+     * @param p the condition to satisfy
+     * @return the sum of all selected elements.
+     */
+    double sum(Predicate<T> p);
+
+
 }

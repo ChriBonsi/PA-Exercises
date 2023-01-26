@@ -3,6 +3,7 @@ package it.unicam.cs.pa.data;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 /**
@@ -25,24 +26,17 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double min() {
-        double currentMin = Double.POSITIVE_INFINITY;
-        for (Element e : elements) {
-            if (e.value < currentMin) {
-                currentMin = e.value;
-            }
-        }
-        return currentMin;
+        return min(e -> true);
     }
 
     @Override
     public double min(T element) {
-        double currentMin = Double.POSITIVE_INFINITY;
-        for (Element e : elements) {
-            if (element.equals(e) && (e.value < currentMin)) {
-                currentMin = e.value;
-            }
-        }
-        return currentMin;
+        return min(Predicate.isEqual(element));
+    }
+
+    @Override
+    public double min(Predicate<T> p) {
+        return reduce(p, (current,value) -> (value<current?value:current), Double.POSITIVE_INFINITY);
     }
 
     @Override
@@ -57,13 +51,27 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double max(Predicate<T> p) {
-        double currentMax = Double.NEGATIVE_INFINITY;
+        return reduce(p, (current, value) -> (value>current?value:current), Double.NEGATIVE_INFINITY);
+    }
+
+    @Override
+    public double sum() {
+        return sum(e -> true);
+    }
+
+    @Override
+    public double sum(Predicate<T> p) {
+        return reduce(p, (total, toAdd) -> (total + toAdd), 0);
+    }
+
+    public double reduce(Predicate<T> p, BiFunction<Double,Double,Double> f, double init) {
+        double current = init;
         for (Element<T> e : elements) {
             if (p.test(e.element)) {
-                currentMax = (e.value>currentMax?e.value:currentMax);
+                current = f.apply(current,e.value);
             }
         }
-        return currentMax;
+        return current;
     }
 
     private class Element<T> {
