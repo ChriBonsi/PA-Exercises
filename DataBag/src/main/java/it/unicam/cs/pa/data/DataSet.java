@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.data;
 
+import java.util.function.Predicate;
+
 /**
  * A DataSet is a collection of elements that have a numeric value associated to them. The classes
  * that implement the DataSet interface will provide mechanisms to elaborate the collected data.
@@ -40,5 +42,12 @@ public interface DataSet<T> {
      * @return the maximum value registered in the DataSet for the element
      */
     double max(T element);
+
+    /**
+     * Returns the maximum value registered in the DataSet that satisfies the condition of the predicate.
+     * @param p the condition to satisfy
+     * @return the maximum registered value that satisfies the predicate:
+     */
+    double max(Predicate<T> p);
 
 }
