@@ -30,7 +30,15 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double min(T element) {
-        return min(Predicate.isEqual(element));
+        return min(isEqual(element));
+    }
+
+    public static <T> Predicate<T> isEqual(T t) {
+        if (t == null) {
+            return Objects::isNull;
+        } else {
+            return v -> t.equals(v);
+        }
     }
 
     @Override
@@ -45,7 +53,7 @@ public class DefaultDataSet<T> implements DataSet<T> {
 
     @Override
     public double max(T element) {
-        return max(Predicate.isEqual(element));
+        return max(isEqual(element));
     }
 
     @Override
