@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -69,6 +70,15 @@ public class DefaultDataSet<T> implements DataSet<T> {
     @Override
     public double sum(Predicate<T> p) {
         return reduce(p, (total, toAdd) -> (total + toAdd), 0);
+    }
+
+    @Override
+    public <R> DataSet<R> map(Function<T, R> f) {
+        DataSet<R> result = new DefaultDataSet<>();
+        for (Element<T> e : elements) {
+            result.record(f.apply(e.element), e.value);
+        }
+        return result;
     }
 
     public double reduce(Predicate<T> p, BiFunction<Double, Double, Double> f, double init) {

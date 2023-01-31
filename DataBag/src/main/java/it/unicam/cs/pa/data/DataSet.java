@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.data;
 
+import javax.xml.crypto.Data;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -78,4 +80,7 @@ public interface DataSet<T> {
      * @return the sum of all selected elements.
      */
     double sum(Predicate<T> p);
+
+
+    <R> DataSet<R> map(Function<T, R> f);
 }
