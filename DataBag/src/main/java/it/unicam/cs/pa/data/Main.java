@@ -16,13 +16,16 @@ public class Main {
         Predicate<Object> p = Objects::isNull;
 
         //The type of the function is String -> int
-        Function<String, Integer> f1 = s -> s.length();
+        Function<String, Integer> f1 = String::length;
 
         //The type of the length method is void -> int, but whenever an instance method is called,
-        //an additional parameter (the Class) is added so it becomes (String * void) -> int
+        //an additional parameter (the Class) is added, so it becomes (String * void) -> int
         Function<String, Integer> f2 = String::length;
 
-        DataSet<Integer> newDataSet = dataSet.map(s -> s.length());
+        String pippo = "PIPPO";
+        Function<Integer, Character> f3 = pippo::charAt;
+
+        DataSet<Integer> newDataSet = dataSet.map(String::length);
 
     }
 }

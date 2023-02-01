@@ -38,8 +38,21 @@ public class DefaultDataSet<T> implements DataSet<T> {
         if (t == null) {
             return Objects::isNull;
         } else {
-            return v -> t.equals(v);
+            return t::equals;
         }
+    }
+
+    public String toString(Function<T, String> repr) {
+        String str = "[";
+        for (Element<T> elem : elements) {
+            str += repr.apply(elem.element) + ":" + elem.value + "; ";
+        }
+        str += "]";
+        return str;
+    }
+
+    public String toString() {
+        return toString(Object::toString);
     }
 
     @Override
