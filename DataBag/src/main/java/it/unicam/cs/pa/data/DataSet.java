@@ -81,6 +81,5 @@ public interface DataSet<T> {
      */
     double sum(Predicate<T> p);
 
-
     <R> DataSet<R> map(Function<T, R> f);
 }
