@@ -42,7 +42,7 @@ public class DefaultDataSet<T> implements DataSet<T> {
         }
     }
 
-    public String toString(Function<T, String> repr) {
+    public String toString(Function<? super T, ? extends String> repr) {
         String str = "[";
         for (Element<T> elem : elements) {
             str += repr.apply(elem.element) + ":" + elem.value + "; ";

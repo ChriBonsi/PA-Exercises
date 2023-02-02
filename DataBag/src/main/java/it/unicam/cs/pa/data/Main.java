@@ -27,5 +27,8 @@ public class Main {
 
         DataSet<Integer> newDataSet = dataSet.map(String::length);
 
+        Function<Object,String> f = s -> s.toString();
+        dataSet.toString(f);
+
     }
 }
