@@ -5,9 +5,7 @@ import java.util.Objects;
 /**
  * Instances of this class are used to model an expression consisting of a single variable.
  */
-public class VarExpression {
-
-    private final String variable;
+public record VarExpression(String variable) implements Expression {
 
     /**
      * Creates an expression consisting of a single variable.
@@ -18,25 +16,4 @@ public class VarExpression {
         this.variable = Objects.requireNonNull(variable);
     }
 
-    /**
-     * Returns the value of the variable.
-     *
-     * @return the value of the variable.
-     */
-    public String getVariable() {
-        return variable;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        VarExpression that = (VarExpression) o;
-        return getVariable().equals(that.getVariable());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getVariable());
-    }
 }
