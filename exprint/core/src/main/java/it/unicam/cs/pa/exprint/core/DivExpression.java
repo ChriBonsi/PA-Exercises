@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Instances of this class are used to model a division between expressions .
  */
-public record DivExpression(Expression leftExpression, Expression rightExpression) implements Expression{
+public record DivExpression(Expression leftExpression, Expression rightExpression) implements Expression {
 
     /**
      * Constructs a new expression that divides the two given arguments. A {@link NullPointerException} is

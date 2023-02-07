@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * This expression is used to model the subtraction of two expressions.
  */
-public record DiffExpression(Expression leftExpression, Expression rightExpression) implements Expression{
+public record DiffExpression(Expression leftExpression, Expression rightExpression) implements Expression {
 
     /**
      * Constructs a new expression that subtracts the two given arguments. A {@link NullPointerException} is
