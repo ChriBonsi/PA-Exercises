@@ -1,4 +1,11 @@
-exprint no gradle/
+.gradle/
+.idea/
+gradle/
+.gitattributes
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
