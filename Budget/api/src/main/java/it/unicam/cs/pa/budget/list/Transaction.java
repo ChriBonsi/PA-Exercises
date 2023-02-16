@@ -1,6 +1,5 @@
 package it.unicam.cs.pa.budget.list;
 
-import javax.swing.text.html.HTML;
 import java.util.List;
 
 /**

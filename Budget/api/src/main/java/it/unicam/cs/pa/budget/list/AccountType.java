@@ -14,5 +14,5 @@ public enum AccountType {
     /**
      * Liabilities are your business' debts or obligations which you need to fulfil in the future.
      */
-    LIABILITY;
+    LIABILITY
 }
