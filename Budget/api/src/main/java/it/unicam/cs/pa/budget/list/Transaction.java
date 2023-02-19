@@ -1,11 +1,24 @@
 package it.unicam.cs.pa.budget.list;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Representation of an activity stored in {@link Ledger}.
  */
-public interface Transaction {
+public interface Transaction extends ElementWithID {
+
+    /**
+     * Returns the time of the transaction.
+     * @return the time of the transaction.
+     */
+    Date getDate();
+
+    /**
+     * Sets a new value for the date.
+     * @param date the new value
+     */
+    void setDate(Date date);
 
     /**
      * Returns the ID of this transaction.

@@ -24,7 +24,7 @@ public class FactoryRegistry<R, T extends ElementWithID> implements Registry<R,T
 
     @Override
     public T create(int id, R args) {
-        if (!isValid(id)){
+        if (!isValidForNewID(id)){
             throw new IllegalArgumentException("Illegal ID");
         }
 
@@ -40,7 +40,7 @@ public class FactoryRegistry<R, T extends ElementWithID> implements Registry<R,T
     }
 
     @Override
-    public boolean isValid(int id) {
+    public boolean isValidForNewID(int id) {
         return id > lastID;
     }
 

@@ -33,7 +33,7 @@ public interface Registry<R, T extends ElementWithID > {
      * @param id the identifier to check
      * @return true if the ID is valid in this registry, false otherwise.
      */
-    boolean isValid(int id);
+    boolean isValidForNewID(int id);
 
     /**
      * Returns the element with the specified ID, if it exists.
