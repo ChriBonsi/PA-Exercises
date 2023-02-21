@@ -5,47 +5,70 @@ import java.util.List;
 /**
  * Represents a statement of transactions during a period and the resulting balance.
  */
-public interface Account {
+public interface Account extends ElementWithId {
 
     /**
-     * Returns the type of the account.
-     * @return the type of the account.
+     * Returns the account type.
+     * @return the account type.
      */
     AccountType getAccountType();
 
     /**
-     * Returns an integer that identifies distinctively the account.
-     * @return an integer that identifies distinctively the account.
-     */
-    int getAccountID();
-
-    /**
-     * Returns the name of the account.
-     * @return the name of the account.
+     * Returns the account name.
+     *
+     * @return the account name.
      */
     String getAccountName();
 
     /**
-     * Returns a brief description of the account.
-     * @return a brief description of the account.
+     * Returns a short description identifying the account.
+     *
+     * @return a short description identifying the account.
      */
     String getDescription();
 
     /**
-     * Returns a list of the movements recorded in this account.
-     * @return a list of the movements recorded in this account.
+     * Returns the list of movements recorded in this account.
+     *
+     * @return the list of movements recorded in this account.
      */
     List<Movement> getMovements();
 
     /**
-     * Returns the opening balance of the account.
-     * @return the opening balance of the account.
+     * Returns the opening balance for this account.
+     *
+     * @return the opening balance for this account.
      */
     double getOpeningBalance();
 
     /**
-     * Returns the current balance of the account.
-     * @return the current balance of the account.
+     * Returns the opening balance.
+     *
+     * @param openingBalance the opening balance.
+     * @throws IllegalArgumentException when <code>!getAccountType().isValidOpening(amount)</code>.
+     */
+    void setOpeningBalance(double openingBalance);
+
+    /**
+     * Returns the current balance for this account.
+     *
+     * @return the current balance for this account.
      */
     double getBalance();
+
+    /**
+     * Sets description of this account.
+     *
+     * @param description the description of this account.
+     */
+    void setDescription(String description);
+
+
+    /**
+     * Sets name of this account.
+     *
+     * @param name sets name of this account.
+     */
+    void setName(String name);
+
 }

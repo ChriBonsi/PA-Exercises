@@ -1,53 +1,70 @@
 package it.unicam.cs.pa.budget.list;
 
-/**
- * This class is used to create and retrieve objects that are distinctively identified by an ID.
- */
-public interface Registry<R, T extends ElementWithID > {
+import java.util.List;
+import java.util.stream.Stream;
 
+/**
+ * This class is used to create and retrieve objects that
+ * are univocally identified by an id.
+ */
+public interface Registry<R, T extends ElementWithId> {
 
     /**
-     * Creates an element with a newly generated ID.
-     * @param args parameters used to create the new element
-     * @return an element with a newly generated ID.
+     * Creates an element with a new generated id.
+     * @param args parameters used to create the new element.
+     * @return an element wit a new generated id.
      */
     T create(R args);
 
     /**
-     * Creates an element with the specified ID.
-     * @param id the identifier
-     * @param args parameters used to create the new element
-     * @return an element with the specified ID.
-     * @throws IllegalArgumentException if the given ID is not valid.
+     * Creates an element with that is identified by the given id.
+     * @param id identifier associated with the created element.
+     * @param args parameters used to create the new element.
+     * @return an element wit a new generated id.
+     * @throws IllegalArgumentException if the given id is not valid.
      */
     T create(int id, R args);
 
     /**
-     * Returns the greatest ID used in the registry.
-     * @return the greatest ID used in the registry.
+     * Returns true if the given id is valid in this registry.
+     * @param id an identifier.
+     * @return true if the given id is valid in this registry.
      */
-    int maxID();
+    boolean isValidForNewId(int id);
 
     /**
-     * Checks if the given ID is valid.
-     * @param id the identifier to check
-     * @return true if the ID is valid in this registry, false otherwise.
-     */
-    boolean isValidForNewID(int id);
-
-    /**
-     * Returns the element with the specified ID, if it exists.
-     * @param id the identifier
-     * @return the element with the specified ID, {@code null} otherwise.
+     * Returns the element associated with the given id, if it exists.
+     * A null value is returned otherwise.
+     *
+     * @param id an identifier.
+     * @return the element associated with the given id, if it exists.
      */
     T get(int id);
 
     /**
-     * Deletes teh element with the specified ID, if it exists.
-     * Returns true if the element has been deleted, false otherwise.
-     *
-     * @param id the identifier
-     * @return true if the element has been deleted, false otherwise.
+     * Deletes the element associated with the given id. This method
+     * returns true if the element has been cancelled, false otherwise.
+     * @param id the identifier associated with the element to delete.
+     * @return true if the element has been cancelled, false otherwise.
      */
     boolean delete(int id);
+
+    /**
+     * Returns true if there exists in this registry an element having the
+     * given id.
+     *
+     * @param id an element id.
+     * @return true if there exists in this registry an element having the
+     * given id.
+     */
+    boolean contains(int id);
+
+    /**
+     * Returns the list of elements in the given registry.
+     *
+     * @return the list of elements in the given registry.
+     */
+    List<T> getElements();
+
+    Stream<T> stream();
 }

@@ -1,17 +1,21 @@
 package it.unicam.cs.pa.budget.list;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 
 /**
- * Default implementation of a registry.
+ * This class is used to create and store objects that are identified by a single integer. The class guarantees
+ * that each object is identified by an integer that can be used to retrieve the corresponding value.
+ *
+ * @param <R> type of parameters used to build the handled eleemnts.
+ * @param <T> type of handled elements.
  */
-public class FactoryRegistry<R, T extends ElementWithID> implements Registry<R,T>{
+public class FactoryRegistry<R,T extends ElementWithId> implements Registry<R,T> {
 
-    private final Map<Integer,T> elements = new HashMap<>();
-    private int lastID = -1;
-    private final BiFunction<Integer, R, T> factoryFunction;
+    private final Map<Integer,T> elements = new TreeMap<>();
+    private int lastId = -1;
+    private final BiFunction<Integer,R,T> factoryFunction;
 
     public FactoryRegistry(BiFunction<Integer, R, T> factoryFunction) {
         this.factoryFunction = factoryFunction;
@@ -19,29 +23,23 @@ public class FactoryRegistry<R, T extends ElementWithID> implements Registry<R,T
 
     @Override
     public T create(R args) {
-        return create(lastID+1,args);
+        return create(lastId+1, args);
     }
 
     @Override
     public T create(int id, R args) {
-        if (!isValidForNewID(id)){
-            throw new IllegalArgumentException("Illegal ID");
+        if (!isValidForNewId(id)) {
+            throw new IllegalArgumentException("Illegal identifier!");
         }
-
         T newElement = factoryFunction.apply(id, args);
-        elements.put(id,newElement);
-        lastID = id;
+        elements.put(id, newElement);
+        lastId = id;
         return newElement;
     }
 
     @Override
-    public int maxID() {
-        return lastID - 1;
-    }
-
-    @Override
-    public boolean isValidForNewID(int id) {
-        return id > lastID;
+    public boolean isValidForNewId(int id) {
+        return id>lastId;
     }
 
     @Override
@@ -51,6 +49,22 @@ public class FactoryRegistry<R, T extends ElementWithID> implements Registry<R,T
 
     @Override
     public boolean delete(int id) {
-        return elements.remove(id) != null;
+        return (elements.remove(id) != null);
     }
+
+    @Override
+    public boolean contains(int id) {
+        return elements.containsKey(id);
+    }
+
+    @Override
+    public List<T> getElements() {
+        return new LinkedList<>(elements.values());
+    }
+
+    @Override
+    public Stream<T> stream() {
+        return elements.values().stream();
+    }
+
 }

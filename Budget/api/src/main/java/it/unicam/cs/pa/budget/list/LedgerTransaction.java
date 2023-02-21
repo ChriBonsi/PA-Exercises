@@ -1,35 +1,57 @@
 package it.unicam.cs.pa.budget.list;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
- *
+ * This is a transaction associated with a specific ledger.
  */
-public class LedgerTransaction implements Transaction{
+public class LedgerTransaction extends AbstractElementWithId implements Transaction {
+
 
     private final Ledger ledger;
-    private final int id;
 
     private Date date;
-
     private final List<Movement> movements;
+    private String description;
+    private final Set<Tag> tags;
 
-    public LedgerTransaction(int id, Ledger ledger) {
-        this(id, ledger, new Date(), new LinkedList<>());
+    /**
+     * Creates a transaction associated with the given ledger and having the
+     * given id. The new crated transaction does not contain any movement, and
+     * it is performed at the current date.
+     *
+     * @param id id associated with the created transaction.
+     * @param ledger ledger associated with the transaction.
+     */
+    public LedgerTransaction(Integer id, Ledger ledger) {
+        this(id, ledger, new Date(), List.of(), "");
     }
 
-    public LedgerTransaction(int id, Ledger ledger, Date date, List<Movement> movements) {
+    /**
+     * Creates a new transaction from the given arguments.
+     *
+     * @param id id associated with the created transaction.
+     * @param ledger ledger associated with the new created transaction.
+     * @param date transaction date.
+     * @param movements list of movements in the transaction.
+     */
+    public LedgerTransaction(int id, Ledger ledger, Date date, List<Movement> movements, String description, Tag ... tags) {
+        super(id);
         this.ledger = ledger;
-        this.id = id;
         this.date = date;
-        this.movements = movements;
+        this.movements = new ArrayList<>(movements);
+        this.description = description;
+        this.tags = new TreeSet<>(List.of(tags));
     }
 
-    public Ledger getLedger(){
+    /**
+     * Returns the ledger associated with this transaction.
+     *
+     * @return the ledger associated with this transaction.
+     */
+    public Ledger getLedger() {
         return ledger;
-    };
+    }
 
     @Override
     public Date getDate() {
@@ -42,18 +64,12 @@ public class LedgerTransaction implements Transaction{
     }
 
     @Override
-    public int getTransactionID() {
-        return id;
-    }
-
-    @Override
     public double balance() {
         double toReturn = 0.0;
-        for (Movement m :
-                movements) {
-            toReturn += m.getAmount();
+        for (Movement m: getMovements()) {
+            toReturn += m.amount();
         }
-        return 0;
+        return toReturn;
     }
 
     @Override
@@ -63,11 +79,44 @@ public class LedgerTransaction implements Transaction{
 
     @Override
     public List<Tag> getTags() {
-        return null;
+        return List.copyOf(tags);
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public void addMovement(Account a, double amount, String description) {
+        Objects.requireNonNull(a);
+        Objects.requireNonNull(description);
+        this.movements.add(new Movement(a, amount, description));
+    }
+
+    @Override
+    public boolean removeMovement(Movement m) {
+        return movements.remove(m);
+    }
+
+    @Override
+    public int size() {
+        return movements.size();
+    }
+
+    @Override
+    public Movement getMovement(int i) {
+        return movements.get(i);
+    }
+
+    @Override
+    public void setMovement(int i, Movement m) {
+        movements.set(i, m);
+    }
+
 }
