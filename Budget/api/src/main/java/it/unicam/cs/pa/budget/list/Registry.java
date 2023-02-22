@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 /**
  * This class is used to create and retrieve objects that
- * are univocally identified by an id.
+ * are distinctively identified by an id.
  */
 public interface Registry<R, T extends ElementWithId> {
 

@@ -6,9 +6,9 @@ package it.unicam.cs.pa.budget.list;
 public interface Tag {
 
     /**
-     * Returns the index that univocally identifying this tag.
+     * Returns the index that distinctively identifies this tag.
      *
-     * @return the index that univocally identifying this tag.
+     * @return the index that distinctively identifies this tag.
      */
     int getTagIndex();
 
