@@ -8,14 +8,14 @@ import java.util.stream.Stream;
  * This class is used to create and store objects that are identified by a single integer. The class guarantees
  * that each object is identified by an integer that can be used to retrieve the corresponding value.
  *
- * @param <R> type of parameters used to build the handled eleemnts.
+ * @param <R> type of parameters used to build the handled elements.
  * @param <T> type of handled elements.
  */
-public class FactoryRegistry<R,T extends ElementWithId> implements Registry<R,T> {
+public class FactoryRegistry<R, T extends ElementWithId> implements Registry<R, T> {
 
-    private final Map<Integer,T> elements = new TreeMap<>();
+    private final Map<Integer, T> elements = new TreeMap<>();
     private int lastId = -1;
-    private final BiFunction<Integer,R,T> factoryFunction;
+    private final BiFunction<Integer, R, T> factoryFunction;
 
     public FactoryRegistry(BiFunction<Integer, R, T> factoryFunction) {
         this.factoryFunction = factoryFunction;
@@ -23,7 +23,7 @@ public class FactoryRegistry<R,T extends ElementWithId> implements Registry<R,T>
 
     @Override
     public T create(R args) {
-        return create(lastId+1, args);
+        return create(lastId + 1, args);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class FactoryRegistry<R,T extends ElementWithId> implements Registry<R,T>
 
     @Override
     public boolean isValidForNewId(int id) {
-        return id>lastId;
+        return id > lastId;
     }
 
     @Override

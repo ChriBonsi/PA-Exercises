@@ -18,5 +18,4 @@ public interface Tag {
      * @return the name of this tag.
      */
     String getTagName();
-
 }

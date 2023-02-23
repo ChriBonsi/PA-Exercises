@@ -75,8 +75,8 @@ public interface Ledger {
     /**
      * Creates an account with the given type, name and openingBalance.
      *
-     * @param type account type.
-     * @param name account name.
+     * @param type           account type.
+     * @param name           account name.
      * @param openingBalance opening balance of the account.
      * @return the new created account.
      * @throws IllegalArgumentException when <code>!type.isValidOpening(openingBalance)</code>.
@@ -88,10 +88,10 @@ public interface Ledger {
     /**
      * Creates an account with the given type, name and openingBalance.
      *
-     * @param type account type.
-     * @param name account name.
+     * @param type           account type.
+     * @param name           account name.
      * @param openingBalance opening balance of the account.
-     * @param description a short description of account.
+     * @param description    a short description of account.
      * @return the new created account.
      * @throws IllegalArgumentException when <code>!type.isValidOpening(openingBalance)</code>.
      */

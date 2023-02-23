@@ -7,7 +7,6 @@ import java.util.*;
  */
 public class LedgerTransaction extends AbstractElementWithId implements Transaction {
 
-
     private final Ledger ledger;
 
     private Date date;
@@ -20,7 +19,7 @@ public class LedgerTransaction extends AbstractElementWithId implements Transact
      * given id. The new crated transaction does not contain any movement, and
      * it is performed at the current date.
      *
-     * @param id id associated with the created transaction.
+     * @param id     id associated with the created transaction.
      * @param ledger ledger associated with the transaction.
      */
     public LedgerTransaction(Integer id, Ledger ledger) {
@@ -30,12 +29,12 @@ public class LedgerTransaction extends AbstractElementWithId implements Transact
     /**
      * Creates a new transaction from the given arguments.
      *
-     * @param id id associated with the created transaction.
-     * @param ledger ledger associated with the new created transaction.
-     * @param date transaction date.
+     * @param id        id associated with the created transaction.
+     * @param ledger    ledger associated with the new created transaction.
+     * @param date      transaction date.
      * @param movements list of movements in the transaction.
      */
-    public LedgerTransaction(int id, Ledger ledger, Date date, List<Movement> movements, String description, Tag ... tags) {
+    public LedgerTransaction(int id, Ledger ledger, Date date, List<Movement> movements, String description, Tag... tags) {
         super(id);
         this.ledger = ledger;
         this.date = date;
@@ -65,11 +64,14 @@ public class LedgerTransaction extends AbstractElementWithId implements Transact
 
     @Override
     public double balance() {
+/*
         double toReturn = 0.0;
         for (Movement m: getMovements()) {
             toReturn += m.amount();
         }
         return toReturn;
+*/
+        return movements.stream().mapToDouble(Movement::amount).sum();
     }
 
     @Override

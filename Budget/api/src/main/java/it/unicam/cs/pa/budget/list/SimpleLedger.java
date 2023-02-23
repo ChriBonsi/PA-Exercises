@@ -1,8 +1,8 @@
 package it.unicam.cs.pa.budget.list;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class SimpleLedger implements Ledger {
 
@@ -21,10 +21,8 @@ public class SimpleLedger implements Ledger {
 //        this.transactions = new FactoryRegistry<>(
 //                (id, ledger) -> new LedgerTransaction(id, ledger)
 //        );
-        this.transactions =
-                new FactoryRegistry<>(LedgerTransaction::new);
-        this.accounts =
-                new FactoryRegistry<>((i, ai) -> new LedgerAccount(i, this, ai));
+        this.transactions = new FactoryRegistry<>(LedgerTransaction::new);
+        this.accounts = new FactoryRegistry<>((integer, info) -> new LedgerAccount(integer, this, info));
     }
 
     public Transaction newTransaction() {
@@ -48,17 +46,20 @@ public class SimpleLedger implements Ledger {
 
     @Override
     public double getTotalBalance() {
+/*
         double sum = getOpeningBalance();
         for(Transaction t: getTransactions()) {
             sum += t.balance();
         }
         return sum;
+*/
+        return getOpeningBalance() + transactions.stream().mapToDouble(Transaction::balance).sum();
     }
 
     @Override
     public double getOpeningBalance() {
         double sum = 0.0;
-        for (Account a: getAccounts()) {
+        for (Account a : getAccounts()) {
             sum += a.getBalance();
         }
         return sum;
@@ -72,26 +73,23 @@ public class SimpleLedger implements Ledger {
 //            }
 //        }
 //        return sum;
-        return accounts
-                .stream()
-                .filter(pred)
-                .mapToDouble(Account::getBalance)
-                .sum();
+        return accounts.stream().filter(pred).mapToDouble(Account::getBalance).sum();
     }
 
     @Override
     public double getTotalAssets() {
-        return sumAccountBalances(a -> a.getAccountType() == AccountType.ASSET );
+        return sumAccountBalances(a -> a.getAccountType() == AccountType.ASSET);
     }
 
     @Override
     public double getTotalLiabilities() {
-        return sumAccountBalances(a -> a.getAccountType() == AccountType.LIABILITY );
+        return sumAccountBalances(a -> a.getAccountType() == AccountType.LIABILITY);
     }
 
 
     @Override
     public List<Movement> getAccountMovement(Predicate<? super Account> pred) {
+/*
         List<Movement> toReturn = new LinkedList<>();
         for(Transaction t: getTransactions()) {
             for(Movement m: t.getMovements()) {
@@ -101,10 +99,13 @@ public class SimpleLedger implements Ledger {
             }
         }
         return toReturn;
+*/
+        return transactions.stream().parallel().map(Transaction::getMovements).flatMap(List::stream).filter(m -> pred.test(m.account())).collect(Collectors.toList());
     }
 
     @Override
     public List<Transaction> getTransactions(Predicate<? super Transaction> pred) {
+/*
         List<Transaction> toReturn = new LinkedList<>();
         for(Transaction t: getTransactions()) {
             if (pred.test(t)) {
@@ -112,12 +113,12 @@ public class SimpleLedger implements Ledger {
             }
         }
         return toReturn;
+*/
+        return transactions.stream().filter(pred).collect(Collectors.toList());
     }
 
     @Override
     public Account newAccount(AccountType type, String name, double openingBalance, String description) {
         return accounts.create(new AccountInfo(type, name, openingBalance, description));
     }
-
-
 }

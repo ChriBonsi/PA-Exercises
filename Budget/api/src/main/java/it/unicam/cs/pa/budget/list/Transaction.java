@@ -62,8 +62,8 @@ public interface Transaction extends ElementWithId {
     /**
      * Adds a movement to this transaction.
      *
-     * @param account the account involved in the movement.
-     * @param amount the amount of the movement.
+     * @param account     the account involved in the movement.
+     * @param amount      the amount of the movement.
      * @param description a short description associated with the movement.
      */
     void addMovement(Account account, double amount, String description);
@@ -72,7 +72,7 @@ public interface Transaction extends ElementWithId {
      * Adds a movement to this transaction.
      *
      * @param account the account involved in the movement.
-     * @param amount the amount of the movement.
+     * @param amount  the amount of the movement.
      */
     default void addMovement(Account account, double amount) {
         addMovement(account, amount, "");
@@ -81,6 +81,7 @@ public interface Transaction extends ElementWithId {
     /**
      * Removes the given movement from this transaction. The method returns true if the movement has been
      * successfully removed, false otherwise.
+     *
      * @param m the movement to remove.
      * @return true if the movement has been  successfully removed, false otherwise.
      */
@@ -108,7 +109,7 @@ public interface Transaction extends ElementWithId {
      * @param i movement index.
      * @param m movement to set.
      * @throws IndexOutOfBoundsException whenever <code>(i<0)||(i>=size())></code>
-     * @throws NullPointerException whenever <code>m==null</code>
+     * @throws NullPointerException      whenever <code>m==null</code>
      */
     void setMovement(int i, Movement m);
 }

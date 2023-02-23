@@ -9,6 +9,7 @@ public interface Account extends ElementWithId {
 
     /**
      * Returns the account type.
+     *
      * @return the account type.
      */
     AccountType getAccountType();
@@ -57,7 +58,7 @@ public interface Account extends ElementWithId {
     double getBalance();
 
     /**
-     * Sets description of this account.
+     * Sets the description of this account.
      *
      * @param description the description of this account.
      */
@@ -65,10 +66,9 @@ public interface Account extends ElementWithId {
 
 
     /**
-     * Sets name of this account.
+     * Sets the name of this account.
      *
      * @param name sets name of this account.
      */
     void setName(String name);
-
 }

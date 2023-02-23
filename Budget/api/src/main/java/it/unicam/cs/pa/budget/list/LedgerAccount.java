@@ -1,17 +1,8 @@
-/*
- * JBudget: A simple Java application for tracking incomes and expenses.
- *
- * Copyright 2022 Michele Loreti
- *
- * Use of this source code is governed by an MIT-style license that can be found in the LICENSE file or at https://opensource.org/licenses/MIT.
- */
-
 package it.unicam.cs.pa.budget.list;
 
 import java.util.List;
 
 public class LedgerAccount extends AbstractElementWithId implements Account {
-
 
     private final Ledger ledger;
     private final AccountType accountType;
@@ -64,8 +55,8 @@ public class LedgerAccount extends AbstractElementWithId implements Account {
     @Override
     public double getBalance() {
         double sum = openingBalance;
-        for (Movement m: getMovements()) {
-            sum  += m.amount();
+        for (Movement m : getMovements()) {
+            sum += m.amount();
         }
         return sum;
     }

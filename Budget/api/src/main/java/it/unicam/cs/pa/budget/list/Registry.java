@@ -11,6 +11,7 @@ public interface Registry<R, T extends ElementWithId> {
 
     /**
      * Creates an element with a new generated id.
+     *
      * @param args parameters used to create the new element.
      * @return an element wit a new generated id.
      */
@@ -18,7 +19,8 @@ public interface Registry<R, T extends ElementWithId> {
 
     /**
      * Creates an element with that is identified by the given id.
-     * @param id identifier associated with the created element.
+     *
+     * @param id   identifier associated with the created element.
      * @param args parameters used to create the new element.
      * @return an element wit a new generated id.
      * @throws IllegalArgumentException if the given id is not valid.
@@ -27,6 +29,7 @@ public interface Registry<R, T extends ElementWithId> {
 
     /**
      * Returns true if the given id is valid in this registry.
+     *
      * @param id an identifier.
      * @return true if the given id is valid in this registry.
      */
@@ -44,6 +47,7 @@ public interface Registry<R, T extends ElementWithId> {
     /**
      * Deletes the element associated with the given id. This method
      * returns true if the element has been cancelled, false otherwise.
+     *
      * @param id the identifier associated with the element to delete.
      * @return true if the element has been cancelled, false otherwise.
      */

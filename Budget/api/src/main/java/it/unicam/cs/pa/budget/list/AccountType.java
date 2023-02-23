@@ -12,12 +12,11 @@ public enum AccountType {
     ASSET,
 
     /**
-     * Liabilities are your business' debts or obligations which you need to fulfil in the future.
+     * Liabilities are your business' debts or obligations which you need to fulfill in the future.
      */
     LIABILITY;
 
-
     public boolean isValidOpening(double amount) {
-        return ((this == ASSET)&&(amount>=0))||((this == LIABILITY)&&(amount<=0));
+        return ((this == ASSET) && (amount >= 0)) || ((this == LIABILITY) && (amount <= 0));
     }
 }
