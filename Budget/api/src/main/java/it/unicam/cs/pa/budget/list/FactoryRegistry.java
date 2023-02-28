@@ -22,8 +22,8 @@ public class FactoryRegistry<R, T extends ElementWithId> implements Registry<R, 
     }
 
     @Override
-    public T create(R args) {
-        return create(lastId + 1, args);
+    public T create(R arguments) {
+        return create(lastId + 1, arguments);
     }
 
     @Override
